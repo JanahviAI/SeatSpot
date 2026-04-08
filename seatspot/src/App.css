@@ -184,6 +184,14 @@ body {
   align-items: center;
   justify-content: center;
   font-size: 3rem;
+  overflow: hidden;
+}
+
+.event-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .event-category {
@@ -245,6 +253,14 @@ body {
 .event-icon {
   font-size: 4rem;
   min-width: 100px;
+}
+
+.event-detail-img {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 0.75rem;
+  display: block;
 }
 
 .event-info h1 {

@@ -57,7 +57,7 @@ function Payment({ user }) {
         localStorage.removeItem('selectedSeats');
         localStorage.removeItem('selectedEventId');
 
-        alert('✅ Payment Successful! Your booking is confirmed.');
+        alert('Payment Successful! Your booking is confirmed.');
         navigate('/mybookings');
       } else {
         throw new Error(bookingResponse.error || 'Failed to save booking');
@@ -90,7 +90,7 @@ function Payment({ user }) {
               <label>Card Holder Name</label>
               <input
                 type="text"
-                placeholder="John Doe"
+                placeholder="Name"
                 value={cardName}
                 onChange={(e) => setCardName(e.target.value)}
               />
@@ -100,7 +100,7 @@ function Payment({ user }) {
               <label>Card Number</label>
               <input
                 type="text"
-                placeholder="1234 5678 9012 3456"
+                placeholder="XXXX XXXX XXXX XXXX"
                 value={cardNumber}
                 onChange={(e) => setCardNumber(e.target.value.replace(/\D/g, '').slice(0, 16))}
                 maxLength="16"
@@ -122,7 +122,7 @@ function Payment({ user }) {
                 <label>CVV</label>
                 <input
                   type="text"
-                  placeholder="123"
+                  placeholder="XXX"
                   value={cvv}
                   onChange={(e) => setCvv(e.target.value.replace(/\D/g, '').slice(0, 3))}
                   maxLength="3"
@@ -134,10 +134,6 @@ function Payment({ user }) {
               {loading ? 'Processing...' : `Pay $${totalPrice}`}
             </button>
           </form>
-
-          <p className="payment-note">
-            💡 This is a demo. You can use any card details.
-          </p>
         </div>
       </div>
     </div>

@@ -101,7 +101,9 @@ function EventDetails() {
         </button>
 
         <div className="event-header">
-          <div className="event-icon">{event.image}</div>
+          <div className="event-icon">
+            <img src={event.image} alt={`${event.name} event image`} className="event-detail-img" />
+          </div>
           <div className="event-info">
             <h1>{event.name}</h1>
             <p>

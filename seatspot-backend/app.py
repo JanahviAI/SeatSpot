@@ -309,7 +309,7 @@ def init_sample_data():
             location='Kolkata, West Bengal',
             category='Music',
             price=1500.0,
-            image='🎵'
+            image='https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&q=80'
         ),
         Event(
             name='Karan Aujla - P-POP Culture Tour',
@@ -318,7 +318,7 @@ def init_sample_data():
             location='Mumbai, Maharashtra',
             category='Music',
             price=2000.0,
-            image='🎤'
+            image='https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=800&q=80'
         ),
         Event(
             name='Yo Yo Honey Singh - My Story Tour (Finale)',
@@ -327,7 +327,7 @@ def init_sample_data():
             location='Bengaluru, Karnataka',
             category='Music',
             price=1800.0,
-            image='🎧'
+            image='https://images.unsplash.com/photo-1501386761578-eaa54b915e8c?w=800&q=80'
         ),
         
         # INTERNATIONAL CONCERTS IN INDIA
@@ -338,7 +338,7 @@ def init_sample_data():
             location='Bengaluru, Karnataka',
             category='Music',
             price=3500.0,
-            image='💿'
+            image='https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=800&q=80'
         ),
         Event(
             name='Max Richter Live in India',
@@ -347,7 +347,7 @@ def init_sample_data():
             location='Mumbai, Maharashtra',
             category='Music',
             price=2500.0,
-            image='🎹'
+            image='https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=800&q=80'
         ),
         Event(
             name='Scorpions - Rock Concert',
@@ -356,7 +356,7 @@ def init_sample_data():
             location='Bengaluru, Karnataka',
             category='Music',
             price=3000.0,
-            image='🎸'
+            image='https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?w=800&q=80'
         ),
         Event(
             name='Scorpions - Mumbai Show',
@@ -365,7 +365,7 @@ def init_sample_data():
             location='Mumbai, Maharashtra',
             category='Music',
             price=3200.0,
-            image='🎸'
+            image='https://images.unsplash.com/photo-1506157786151-b8491531f063?w=800&q=80'
         ),
         Event(
             name='Ye (Kanye West) - Live in Delhi',
@@ -374,7 +374,7 @@ def init_sample_data():
             location='Delhi, NCR',
             category='Music',
             price=5000.0,
-            image='🎤'
+            image='https://images.unsplash.com/photo-1540039155733-5bb30b4f36ff?w=800&q=80'
         ),
         
         # MUSIC FESTIVALS
@@ -385,7 +385,7 @@ def init_sample_data():
             location='Mumbai, Maharashtra',
             category='Music',
             price=800.0,
-            image='🎪'
+            image='https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?w=800&q=80'
         ),
         Event(
             name='Bengaluru Art Weekend',
@@ -394,7 +394,7 @@ def init_sample_data():
             location='Bengaluru, Karnataka',
             category='Music',
             price=600.0,
-            image='🎨'
+            image='https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=800&q=80'
         ),
         
         # TECH & BUSINESS CONFERENCES
@@ -405,7 +405,7 @@ def init_sample_data():
             location='New Delhi, NCR',
             category='Tech',
             price=3500.0,
-            image='💻'
+            image='https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80'
         ),
         Event(
             name='TechCrunch India Disrupt 2026',
@@ -414,7 +414,7 @@ def init_sample_data():
             location='Bengaluru, Karnataka',
             category='Tech',
             price=4000.0,
-            image='🤖'
+            image='https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=800&q=80'
         ),
         Event(
             name='Nasscom Global Tech Summit',
@@ -423,7 +423,7 @@ def init_sample_data():
             location='Mumbai, Maharashtra',
             category='Tech',
             price=3000.0,
-            image='⚡'
+            image='https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&q=80'
         ),
         Event(
             name='Web Summit India 2026',
@@ -432,7 +432,7 @@ def init_sample_data():
             location='Pune, Maharashtra',
             category='Tech',
             price=2500.0,
-            image='💡'
+            image='https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=800&q=80'
         ),
         
         # COMEDY
@@ -443,7 +443,7 @@ def init_sample_data():
             location='Delhi, NCR',
             category='Comedy',
             price=1200.0,
-            image='😂'
+            image='https://images.unsplash.com/photo-1585699324551-f6c309eedeca?w=800&q=80'
         ),
         Event(
             name='Stand-Up Comedy Night - Mumbai',
@@ -452,7 +452,7 @@ def init_sample_data():
             location='Mumbai, Maharashtra',
             category='Comedy',
             price=800.0,
-            image='🎭'
+            image='https://images.unsplash.com/photo-1527224857830-43a7acc85260?w=800&q=80'
         ),
         
         # SPORTS & CULTURAL EVENTS
@@ -463,7 +463,7 @@ def init_sample_data():
             location='Multiple Cities, India',
             category='Sports',
             price=2500.0,
-            image='🏏'
+            image='https://images.unsplash.com/photo-1540747913346-19212a4b423e?w=800&q=80'
         ),
         Event(
             name='Delhi Marathon 2026',
@@ -472,7 +472,7 @@ def init_sample_data():
             location='Delhi, NCR',
             category='Sports',
             price=500.0,
-            image='🏃'
+            image='https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800&q=80'
         ),
         Event(
             name='Saffronart Spring Auctions 2026',
@@ -481,7 +481,7 @@ def init_sample_data():
             location='Mumbai, Maharashtra',
             category='Art',
             price=2000.0,
-            image='🖼️'
+            image='https://images.unsplash.com/photo-1578926288207-a90a5366759d?w=800&q=80'
         ),
         Event(
             name='World Theatre Day Celebration',
@@ -490,7 +490,7 @@ def init_sample_data():
             location='Bengaluru, Karnataka',
             category='Art',
             price=500.0,
-            image='🎭'
+            image='https://images.unsplash.com/photo-1507924538820-ede94a04019d?w=800&q=80'
         ),
     ]
     
@@ -499,7 +499,7 @@ def init_sample_data():
     
     session.commit()
     session.close()
-    print("✅ 20 Indian Events Added!")
+    print("20 Indian Events Added!")
 
 if __name__ == '__main__':
     init_sample_data()
