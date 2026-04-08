@@ -5,6 +5,7 @@ function Confirmation() {
   const navigate = useNavigate();
   const selectedSeats = JSON.parse(localStorage.getItem('selectedSeats') || '[]');
   const selectedEventId = parseInt(localStorage.getItem('selectedEventId') || '0');
+  const eventPrice = parseFloat(localStorage.getItem('selectedEventPrice') || '0');
 
   const handleProceedToPayment = () => {
     if (selectedSeats.length === 0) {
@@ -18,11 +19,11 @@ function Confirmation() {
     navigate(-1);
   };
 
-  if (selectedSeats.length === 0) {
+  if (selectedSeats.length === 0 || eventPrice <= 0) {
     return <div className="container"><p>No booking data found</p></div>;
   }
 
-  const totalPrice = selectedSeats.length * 50; // Default price for demo
+  const totalPrice = selectedSeats.length * eventPrice;
 
   return (
     <div className="confirmation-page">
