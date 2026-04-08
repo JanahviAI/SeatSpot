@@ -51,6 +51,7 @@ function EventDetails() {
 
     localStorage.setItem('selectedSeats', JSON.stringify(selectedSeats));
     localStorage.setItem('selectedEventId', id);
+    localStorage.setItem('selectedEventPrice', event.price);
 
     navigate('/confirmation');
   };

@@ -26,7 +26,20 @@ function Payment({ user }) {
 
   const selectedSeats = JSON.parse(localStorage.getItem('selectedSeats') || '[]');
   const selectedEventId = parseInt(localStorage.getItem('selectedEventId') || '0');
-  const totalPrice = selectedSeats.length * 50;
+  const eventPrice = parseFloat(localStorage.getItem('selectedEventPrice') || '0');
+  const totalPrice = selectedSeats.length * eventPrice;
+
+  if (selectedSeats.length === 0 || eventPrice <= 0) {
+    return (
+      <div className="container">
+        <h1>Payment</h1>
+        <div className="error-message">No booking data found. Please select an event first.</div>
+        <button className="btn-primary" onClick={() => navigate('/')}>
+          Back to Events
+        </button>
+      </div>
+    );
+  }
 
   const handlePayment = async (e) => {
     e.preventDefault();
@@ -66,6 +79,7 @@ function Payment({ user }) {
       if (bookingResponse.success) {
         localStorage.removeItem('selectedSeats');
         localStorage.removeItem('selectedEventId');
+        localStorage.removeItem('selectedEventPrice');
 
         alert('Payment Successful! Your booking is confirmed.');
         navigate('/mybookings');
