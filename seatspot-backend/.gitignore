@@ -1,0 +1,26 @@
+# virtual environment
+seatspotenv/
+venv/
+.env/
+
+# python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# environment variables / secrets
+.env
+.env.*
+
+# database
+seatspot.db
+*.db
+
+# logs
+*.log
+
+# OS / editor files
+.DS_Store
+.vscode/
+.idea/
