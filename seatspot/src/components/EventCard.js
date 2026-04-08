@@ -10,7 +10,9 @@ function EventCard({ event }) {
 
   return (
     <div className="event-card" onClick={handleClick}>
-      <div className="event-image">{event.image}</div>
+      <div className="event-image">
+        <img src={event.image} alt={`${event.name} event image`} className="event-img" />
+      </div>
       <div className="event-category">{event.category}</div>
       <h3>{event.name}</h3>
       <div className="event-details">

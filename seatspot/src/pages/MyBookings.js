@@ -13,20 +13,20 @@ function MyBookings({ user }) {
       setError('');
       setLoading(true);
       
-      console.log('🔵 Fetching bookings for user ID:', user.id);
+      console.log('Fetching bookings for user ID:', user.id);
       const response = await bookingAPI.getUserBookings(user.id);
       
-      console.log('🟢 API Response:', response);
+      console.log('API Response:', response);
       
       if (response.success) {
-        console.log('✅ Bookings found:', response.bookings.length);
+        console.log('Bookings found:', response.bookings.length);
         setBookings(response.bookings || []);
       } else {
-        console.log('❌ API Error:', response.error);
+        console.log('API Error:', response.error);
         setError(response.error || 'Failed to fetch bookings');
       }
     } catch (error) {
-      console.error('🔴 Network Error:', error);
+      console.error('Network Error:', error);
       setError(`Connection error: ${error.message}`);
     } finally {
       setLoading(false);
@@ -35,7 +35,7 @@ function MyBookings({ user }) {
 
   useEffect(() => {
     if (user && user.id) {
-      console.log('👤 User logged in. ID:', user.id);
+      console.log('User logged in. ID:', user.id);
       fetchBookings();
     } else {
       setError('No user logged in');
@@ -119,7 +119,7 @@ function MyBookings({ user }) {
               <p><strong>Event ID:</strong> {booking.event_id}</p>
               <p><strong>Seats:</strong> {Array.isArray(booking.seats) ? booking.seats.join(', ') : booking.seats}</p>
               <p><strong>Price:</strong> ₹{booking.total_price}</p>
-              <p><strong>Status:</strong> <span style={{color: '#667eea'}}>✅ {booking.payment_status}</span></p>
+              <p><strong>Status:</strong> <span style={{color: '#667eea'}}>{booking.payment_status}</span></p>
             </div>
           </div>
         ))}
