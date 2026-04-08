@@ -13,7 +13,9 @@ function Navbar({ user, onLogout }) {
       <div className="nav-right">
         <Link to="/" className="nav-link">Events</Link>
         <Link to="/mybookings" className="nav-link">My Bookings</Link>
-        <span className="user-info">{user?.name}</span>
+        {user && user.name && (
+          <span className="user-info">{user.name}</span>
+        )}
         <button className="nav-link logout-btn" onClick={onLogout}>
           Logout
         </button>

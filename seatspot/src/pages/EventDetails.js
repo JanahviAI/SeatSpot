@@ -49,7 +49,6 @@ function EventDetails() {
       return;
     }
 
-    // Store booking data in localStorage
     localStorage.setItem('selectedSeats', JSON.stringify(selectedSeats));
     localStorage.setItem('selectedEventId', id);
 
@@ -97,13 +96,19 @@ function EventDetails() {
           onClick={() => navigate('/')}
           style={{ marginBottom: '2rem' }}
         >
-          ← Back to Events
+          Back to Events
         </button>
 
         <div className="event-header">
-          <div className="event-icon">
-            <img src={event.image} alt={`${event.name} event image`} className="event-detail-img" />
-          </div>
+          <img 
+            src={event.image} 
+            alt={event.name}
+            className="event-icon"
+            onError={(e) => {
+              e.target.style.backgroundColor = '#e0e0e0';
+              e.target.style.display = 'none';
+            }}
+          />
           <div className="event-info">
             <h1>{event.name}</h1>
             <p>

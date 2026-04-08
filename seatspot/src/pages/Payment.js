@@ -11,6 +11,19 @@ function Payment({ user }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
+  // Redirect if user not logged in
+  if (!user || !user.id) {
+    return (
+      <div className="container">
+        <h1>Payment</h1>
+        <div className="error-message">Please login to make a payment</div>
+        <button className="btn-primary" onClick={() => navigate('/')}>
+          Back to Home
+        </button>
+      </div>
+    );
+  }
+
   const selectedSeats = JSON.parse(localStorage.getItem('selectedSeats') || '[]');
   const selectedEventId = parseInt(localStorage.getItem('selectedEventId') || '0');
   const totalPrice = selectedSeats.length * 50;
@@ -25,7 +38,7 @@ function Payment({ user }) {
         throw new Error('Card number must be 16 digits');
       }
       if (!cardName) {
-        throw new Error('Please enter card holder name');
+        throw new Error('Please enter cardholder name');
       }
       if (!expiry) {
         throw new Error('Please enter expiry date');
@@ -34,14 +47,12 @@ function Payment({ user }) {
         throw new Error('CVV must be 3 digits');
       }
 
-      // Process payment
       const paymentResponse = await paymentAPI.process(cardNumber, cardName, expiry, cvv);
       
       if (!paymentResponse.success) {
         throw new Error(paymentResponse.error || 'Payment failed');
       }
 
-      // Create booking
       console.log('Creating booking with user ID:', user.id);
       const bookingResponse = await bookingAPI.create(
         user.id,
@@ -53,7 +64,6 @@ function Payment({ user }) {
       console.log('Booking response:', bookingResponse);
 
       if (bookingResponse.success) {
-        // Clear localStorage
         localStorage.removeItem('selectedSeats');
         localStorage.removeItem('selectedEventId');
 
@@ -80,14 +90,14 @@ function Payment({ user }) {
             <h3>Order Summary</h3>
             <p><strong>Event ID:</strong> {selectedEventId}</p>
             <p><strong>Seats:</strong> {selectedSeats.join(', ')}</p>
-            <p><strong>Total Amount:</strong> <span className="price">${totalPrice}</span></p>
+            <p><strong>Total Amount:</strong> <span className="price">₹{totalPrice}</span></p>
           </div>
 
           {error && <div className="error-message">{error}</div>}
 
           <form onSubmit={handlePayment}>
             <div className="form-group">
-              <label>Card Holder Name</label>
+              <label>Cardholder Name</label>
               <input
                 type="text"
                 placeholder="Name"
@@ -131,7 +141,7 @@ function Payment({ user }) {
             </div>
 
             <button type="submit" className="btn-primary" disabled={loading}>
-              {loading ? 'Processing...' : `Pay $${totalPrice}`}
+              {loading ? 'Processing...' : `Pay ₹${totalPrice}`}
             </button>
           </form>
         </div>

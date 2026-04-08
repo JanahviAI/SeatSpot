@@ -40,7 +40,7 @@ function Confirmation() {
               <h3>Your Booking</h3>
               <p><strong>Seats:</strong> {selectedSeats.join(', ')}</p>
               <p><strong>Number of Seats:</strong> {selectedSeats.length}</p>
-              <p className="total"><strong>Total Amount:</strong> ${totalPrice}</p>
+              <p className="total"><strong>Total Amount:</strong> ₹{totalPrice}</p>
             </div>
           </div>
 

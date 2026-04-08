@@ -10,9 +10,15 @@ function EventCard({ event }) {
 
   return (
     <div className="event-card" onClick={handleClick}>
-      <div className="event-image">
-        <img src={event.image} alt={`${event.name} event image`} className="event-img" />
-      </div>
+      <img 
+        src={event.image} 
+        alt={event.name}
+        className="event-image"
+        onError={(e) => {
+          e.target.style.backgroundColor = '#2a2f3e';
+          e.target.style.display = 'none';
+        }}
+      />
       <div className="event-category">{event.category}</div>
       <h3>{event.name}</h3>
       <div className="event-details">
