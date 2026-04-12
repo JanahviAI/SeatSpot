@@ -866,3 +866,19 @@ body {
     display: none;
   }
 }
+
+/* Add this new class at the end of the file */
+
+.seat.booked {
+  background-color: #fdb9b9;
+  border-color: #ff6b6b;
+  color: #ffffff;
+  cursor: not-allowed !important;
+  opacity: 0.8;
+}
+
+.seat.booked:hover {
+  background-color: #dad3d3 !important;
+  border-color: #ff6b6b !important;
+  transform: none !important;
+}

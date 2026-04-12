@@ -9,6 +9,7 @@ function EventDetails() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [selectedSeats, setSelectedSeats] = useState([]);
+  const [bookedSeats, setBookedSeats] = useState([]); // ADD THIS
 
   const fetchEvent = useCallback(async () => {
     try {
@@ -29,11 +30,41 @@ function EventDetails() {
     }
   }, [id]);
 
+  // ADD THIS NEW FUNCTION
+  const fetchBookedSeats = useCallback(async () => {
+    try {
+      const response = await eventAPI.getBookedSeats(parseInt(id));
+      
+      if (response.success) {
+        setBookedSeats(response.booked_seats || []);
+        console.log('Booked seats:', response.booked_seats);
+      }
+    } catch (err) {
+      console.error('Error fetching booked seats:', err);
+    }
+  }, [id]);
+
   useEffect(() => {
     fetchEvent();
   }, [fetchEvent]);
 
+  // ADD THIS - Fetch booked seats on mount and refresh every 5 seconds
+  useEffect(() => {
+    fetchBookedSeats();
+    
+    // Poll for updates every 5 seconds
+    const interval = setInterval(fetchBookedSeats, 5000);
+    
+    return () => clearInterval(interval);
+  }, [fetchBookedSeats]);
+
   const handleSeatClick = (seat) => {
+    // MODIFY THIS - Don't allow clicking booked seats
+    if (bookedSeats.includes(seat)) {
+      alert('This seat is already booked!');
+      return;
+    }
+
     setSelectedSeats(prev => {
       if (prev.includes(seat)) {
         return prev.filter(s => s !== seat);
@@ -50,8 +81,8 @@ function EventDetails() {
     }
 
     localStorage.setItem('selectedSeats', JSON.stringify(selectedSeats));
-    localStorage.setItem('selectedEventId', id);
-    localStorage.setItem('selectedEventPrice', event.price);
+    localStorage.setItem('selectedEventId', event.id);
+    localStorage.setItem('eventPrice', event.price);
 
     navigate('/confirmation');
   };
@@ -141,6 +172,10 @@ function EventDetails() {
               <div className="seat-selected"></div>
               <span>Selected</span>
             </div>
+            <div className="legend-item">
+              <div style={{width: '20px', height: '20px', backgroundColor: '#ff6b6b', borderRadius: '0.3rem'}}></div>
+              <span>Booked</span>
+            </div>
           </div>
 
           <div className="seats-grid">
@@ -150,12 +185,14 @@ function EventDetails() {
                 {[...Array(seatsPerRow)].map((_, index) => {
                   const seatNumber = `${row}${index + 1}`;
                   const isSelected = selectedSeats.includes(seatNumber);
+                  const isBooked = bookedSeats.includes(seatNumber); // ADD THIS
 
                   return (
                     <button
                       key={seatNumber}
-                      className={`seat ${isSelected ? 'selected' : ''}`}
+                      className={`seat ${isSelected ? 'selected' : ''} ${isBooked ? 'booked' : ''}`}
                       onClick={() => handleSeatClick(seatNumber)}
+                      disabled={isBooked} // ADD THIS
                     >
                       {index + 1}
                     </button>

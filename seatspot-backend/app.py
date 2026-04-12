@@ -228,7 +228,43 @@ def get_event(event_id):
         if session:
             session.close()
 
-
+@app.route('/api/events/<int:event_id>/booked-seats', methods=['GET'])
+def get_booked_seats(event_id):
+    """Get all booked seats for an event"""
+    session = None
+    try:
+        session = Session()
+        
+        # Find all bookings for this event
+        bookings = session.query(Booking).filter_by(event_id=event_id).all()
+        
+        # Collect all booked seats
+        booked_seats = []
+        for booking in bookings:
+            try:
+                seats = json.loads(booking.seats)
+                booked_seats.extend(seats)
+            except:
+                pass
+        
+        session.close()
+        
+        return jsonify({
+            'success': True,
+            'event_id': event_id,
+            'booked_seats': booked_seats
+        }), 200
+    
+    except Exception as e:
+        if session:
+            session.rollback()
+        print(f"Get booked seats error: {str(e)}")
+        print(traceback.format_exc())
+        return jsonify({'success': False, 'error': str(e)}), 500
+    
+    finally:
+        if session:
+            session.close()
 # 3. BOOKING ROUTES
 
 @app.route('/api/bookings', methods=['POST'])
@@ -452,7 +488,7 @@ def init_sample_data():
                 location='Bengaluru, Karnataka',
                 category='Music',
                 price=1800.0,
-                image='https://images.unsplash.com/photo-1501386761578-eaa54b915e8c?w=800&q=80'
+                image='/yoyo.jpg'
             ),
             Event(
                 name='Calvin Harris India Tour',
@@ -497,7 +533,7 @@ def init_sample_data():
                 location='Delhi, NCR',
                 category='Music',
                 price=5000.0,
-                image='https://images.unsplash.com/photo-1540039155733-5bb30b4f36ff?w=800&q=80'
+                image='/ye.jpg'
             ),
             Event(
                 name='AI Impact Summit 2026',
@@ -533,7 +569,7 @@ def init_sample_data():
                 location='Multiple Cities, India',
                 category='Sports',
                 price=2500.0,
-                image='https://images.unsplash.com/photo-1540747913346-19212a4b423e?w=800&q=80'
+                image='/ipl.jpg'
             ),
         ]
         

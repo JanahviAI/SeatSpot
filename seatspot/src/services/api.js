@@ -24,6 +24,8 @@ export const userAPI = {
 
 // ===== EVENT SERVICES =====
 
+// Add this to eventAPI object (after getById)
+
 export const eventAPI = {
   getAll: async () => {
     const response = await fetch(`${API_URL}/events`);
@@ -32,6 +34,11 @@ export const eventAPI = {
 
   getById: async (id) => {
     const response = await fetch(`${API_URL}/events/${id}`);
+    return response.json();
+  },
+
+  getBookedSeats: async (eventId) => {
+    const response = await fetch(`${API_URL}/events/${eventId}/booked-seats`);
     return response.json();
   }
 };
