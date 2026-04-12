@@ -24,12 +24,24 @@ function Payment({ user }) {
     );
   }
 
-  const selectedSeats = JSON.parse(localStorage.getItem('selectedSeats') || '[]');
+  let selectedSeats = [];
+  try {
+    selectedSeats = JSON.parse(localStorage.getItem('selectedSeats') || '[]');
+  } catch (error) {
+    console.error('Invalid selectedSeats found in localStorage:', error);
+  }
   const selectedEventId = parseInt(localStorage.getItem('selectedEventId') || '0');
-  const eventPrice = parseFloat(localStorage.getItem('selectedEventPrice') || '0');
+  const eventPrice = parseFloat(
+    localStorage.getItem('eventPrice') || localStorage.getItem('selectedEventPrice') || '0'
+  );
   const totalPrice = selectedSeats.length * eventPrice;
 
-  if (selectedSeats.length === 0 || eventPrice <= 0) {
+  if (selectedSeats.length === 0 || selectedEventId <= 0 || eventPrice <= 0) {
+    console.log('Missing booking data in Payment:', {
+      selectedSeats,
+      selectedEventId,
+      eventPrice
+    });
     return (
       <div className="container">
         <h1>Payment</h1>
@@ -79,6 +91,7 @@ function Payment({ user }) {
       if (bookingResponse.success) {
         localStorage.removeItem('selectedSeats');
         localStorage.removeItem('selectedEventId');
+        localStorage.removeItem('eventPrice');
         localStorage.removeItem('selectedEventPrice');
 
         alert('Payment Successful! Your booking is confirmed.');
@@ -104,7 +117,8 @@ function Payment({ user }) {
             <h3>Order Summary</h3>
             <p><strong>Event ID:</strong> {selectedEventId}</p>
             <p><strong>Seats:</strong> {selectedSeats.join(', ')}</p>
-            <p><strong>Total Amount:</strong> <span className="price">₹{totalPrice}</span></p>
+            <p><strong>Price per Seat:</strong> ₹{eventPrice}</p>
+            <p><strong>Total Amount:</strong> <span className="price">₹{totalPrice.toFixed(2)}</span></p>
           </div>
 
           {error && <div className="error-message">{error}</div>}
@@ -155,7 +169,7 @@ function Payment({ user }) {
             </div>
 
             <button type="submit" className="btn-primary" disabled={loading}>
-              {loading ? 'Processing...' : `Pay ₹${totalPrice}`}
+              {loading ? 'Processing...' : `Pay ₹${totalPrice.toFixed(2)}`}
             </button>
           </form>
         </div>
