@@ -9,7 +9,7 @@ function EventDetails() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [selectedSeats, setSelectedSeats] = useState([]);
-  const [bookedSeats, setBookedSeats] = useState([]); // ADD THIS
+  const [bookedSeats, setBookedSeats] = useState([]);
 
   const fetchEvent = useCallback(async () => {
     try {
@@ -30,7 +30,6 @@ function EventDetails() {
     }
   }, [id]);
 
-  // ADD THIS NEW FUNCTION
   const fetchBookedSeats = useCallback(async () => {
     try {
       const response = await eventAPI.getBookedSeats(parseInt(id));
@@ -48,18 +47,15 @@ function EventDetails() {
     fetchEvent();
   }, [fetchEvent]);
 
-  // ADD THIS - Fetch booked seats on mount and refresh every 5 seconds
   useEffect(() => {
     fetchBookedSeats();
     
-    // Poll for updates every 5 seconds
     const interval = setInterval(fetchBookedSeats, 5000);
     
     return () => clearInterval(interval);
   }, [fetchBookedSeats]);
 
   const handleSeatClick = (seat) => {
-    // MODIFY THIS - Don't allow clicking booked seats
     if (bookedSeats.includes(seat)) {
       alert('This seat is already booked!');
       return;
@@ -81,8 +77,15 @@ function EventDetails() {
     }
 
     localStorage.setItem('selectedSeats', JSON.stringify(selectedSeats));
-    localStorage.setItem('selectedEventId', event.id);
-    localStorage.setItem('eventPrice', event.price);
+    localStorage.setItem('selectedEventId', String(event.id));
+    localStorage.setItem('eventPrice', String(event.price));
+    if (process.env.NODE_ENV === 'development') {
+      console.log('Saved booking data to localStorage:', {
+        selectedSeats,
+        selectedEventId: event.id,
+        eventPrice: event.price
+      });
+    }
 
     navigate('/confirmation');
   };
@@ -185,14 +188,14 @@ function EventDetails() {
                 {[...Array(seatsPerRow)].map((_, index) => {
                   const seatNumber = `${row}${index + 1}`;
                   const isSelected = selectedSeats.includes(seatNumber);
-                  const isBooked = bookedSeats.includes(seatNumber); // ADD THIS
+                  const isBooked = bookedSeats.includes(seatNumber);
 
                   return (
                     <button
                       key={seatNumber}
                       className={`seat ${isSelected ? 'selected' : ''} ${isBooked ? 'booked' : ''}`}
                       onClick={() => handleSeatClick(seatNumber)}
-                      disabled={isBooked} // ADD THIS
+                      disabled={isBooked}
                     >
                       {index + 1}
                     </button>

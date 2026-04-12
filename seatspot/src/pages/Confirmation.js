@@ -3,9 +3,18 @@ import { useNavigate } from 'react-router-dom';
 
 function Confirmation() {
   const navigate = useNavigate();
-  const selectedSeats = JSON.parse(localStorage.getItem('selectedSeats') || '[]');
+  let selectedSeats = [];
+  try {
+    selectedSeats = JSON.parse(localStorage.getItem('selectedSeats') || '[]');
+  } catch (error) {
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Invalid selectedSeats found in localStorage:', error);
+    }
+  }
   const selectedEventId = parseInt(localStorage.getItem('selectedEventId') || '0');
-  const eventPrice = parseFloat(localStorage.getItem('selectedEventPrice') || '0');
+  const eventPrice = parseFloat(
+    localStorage.getItem('eventPrice') || localStorage.getItem('selectedEventPrice') || '0'
+  );
 
   const handleProceedToPayment = () => {
     if (selectedSeats.length === 0) {
@@ -19,7 +28,14 @@ function Confirmation() {
     navigate(-1);
   };
 
-  if (selectedSeats.length === 0 || eventPrice <= 0) {
+  if (selectedSeats.length === 0 || selectedEventId <= 0 || eventPrice <= 0) {
+    if (process.env.NODE_ENV === 'development') {
+      console.log('Missing booking data in Confirmation:', {
+        selectedSeats,
+        selectedEventId,
+        eventPrice
+      });
+    }
     return <div className="container"><p>No booking data found</p></div>;
   }
 
@@ -41,7 +57,8 @@ function Confirmation() {
               <h3>Your Booking</h3>
               <p><strong>Seats:</strong> {selectedSeats.join(', ')}</p>
               <p><strong>Number of Seats:</strong> {selectedSeats.length}</p>
-              <p className="total"><strong>Total Amount:</strong> ₹{totalPrice}</p>
+              <p><strong>Price per Seat:</strong> ₹{eventPrice}</p>
+              <p className="total"><strong>Total Amount:</strong> ₹{totalPrice.toFixed(2)}</p>
             </div>
           </div>
 
