@@ -7,7 +7,9 @@ function Confirmation() {
   try {
     selectedSeats = JSON.parse(localStorage.getItem('selectedSeats') || '[]');
   } catch (error) {
-    console.error('Invalid selectedSeats found in localStorage:', error);
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Invalid selectedSeats found in localStorage:', error);
+    }
   }
   const selectedEventId = parseInt(localStorage.getItem('selectedEventId') || '0');
   const eventPrice = parseFloat(
