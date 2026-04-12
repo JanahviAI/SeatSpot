@@ -27,11 +27,13 @@ function Confirmation() {
   };
 
   if (selectedSeats.length === 0 || selectedEventId <= 0 || eventPrice <= 0) {
-    console.log('Missing booking data in Confirmation:', {
-      selectedSeats,
-      selectedEventId,
-      eventPrice
-    });
+    if (process.env.NODE_ENV === 'development') {
+      console.log('Missing booking data in Confirmation:', {
+        selectedSeats,
+        selectedEventId,
+        eventPrice
+      });
+    }
     return <div className="container"><p>No booking data found</p></div>;
   }
 

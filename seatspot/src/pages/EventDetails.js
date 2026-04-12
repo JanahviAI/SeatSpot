@@ -79,11 +79,13 @@ function EventDetails() {
     localStorage.setItem('selectedSeats', JSON.stringify(selectedSeats));
     localStorage.setItem('selectedEventId', String(event.id));
     localStorage.setItem('eventPrice', String(event.price));
-    console.log('Saved booking data to localStorage:', {
-      selectedSeats,
-      selectedEventId: event.id,
-      eventPrice: event.price
-    });
+    if (process.env.NODE_ENV === 'development') {
+      console.log('Saved booking data to localStorage:', {
+        selectedSeats,
+        selectedEventId: event.id,
+        eventPrice: event.price
+      });
+    }
 
     navigate('/confirmation');
   };

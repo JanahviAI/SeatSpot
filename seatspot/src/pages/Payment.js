@@ -37,11 +37,13 @@ function Payment({ user }) {
   const totalPrice = selectedSeats.length * eventPrice;
 
   if (selectedSeats.length === 0 || selectedEventId <= 0 || eventPrice <= 0) {
-    console.log('Missing booking data in Payment:', {
-      selectedSeats,
-      selectedEventId,
-      eventPrice
-    });
+    if (process.env.NODE_ENV === 'development') {
+      console.log('Missing booking data in Payment:', {
+        selectedSeats,
+        selectedEventId,
+        eventPrice
+      });
+    }
     return (
       <div className="container">
         <h1>Payment</h1>
